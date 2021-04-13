@@ -1,0 +1,24 @@
+/*eslint-disable no-unused-vars*/
+"use strict";
+var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  var _jsxFileName = "/Users/admin/Documents/Work/test-ipfs/ipfs-http-client-upload-file/src/index.js";
+  const React = require('react');
+  const ReactDOM = require('react-dom');
+  const App = require('./App');
+  ReactDOM.render(/*#__PURE__*/React.createElement(App, {
+    __self: this,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 7,
+      columnNumber: 17
+    }
+  }), document.getElementById('root'));
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}

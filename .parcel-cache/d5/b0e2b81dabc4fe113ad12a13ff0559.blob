@@ -1,0 +1,103 @@
+var helpers = require("../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+  _parcelHelpers.defineInteropFlag(exports);
+  var _jsxFileName = "/Users/admin/Documents/Work/test-ipfs/ipfs-http-client-upload-file/src/components/UploadFn.js";
+  const {useState, useEffect} = require('react');
+  const React = require('react');
+  const IPFS = require('ipfs-core');
+  const UploadFn = () => {
+    const [hash, setHash] = useState("");
+    const [fileName, setFileName] = useState("");
+    const [pathFileName, setPathFileName] = useState([]);
+    useEffect(() => {
+      const saveToIpfsWithFilename = async ([file]) => {
+        const fileDetails = {
+          path: file.name,
+          content: file
+        };
+        const options = {
+          wrapWithDirectory: true,
+          progress: prog => console.log(`received: ${prog}`)
+        };
+        const ipfs = await IPFS.create();
+        const {cid} = await ipfs.add(fileDetails, options);
+        const result = {
+          hash: cid.string,
+          fileName: fileDetails.path
+        };
+        return result;
+      };
+      const captureFile = async files => {
+        const data = await saveToIpfsWithFilename(files);
+        setHash(data.hash);
+        setFileName(data.fileName);
+      };
+      if (pathFileName.length) {
+        captureFile(pathFileName);
+      }
+    }, [pathFileName]);
+    const handelChangeFile = e => {
+      setPathFileName(e.target.files);
+    };
+    return (
+      /*#__PURE__*/React.createElement("div", {
+        className: "App",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 45,
+          columnNumber: 7
+        }
+      }, /*#__PURE__*/React.createElement("form", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 46,
+          columnNumber: 9
+        }
+      }, /*#__PURE__*/React.createElement("input", {
+        type: "file",
+        name: "input-file",
+        onChange: handelChangeFile,
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 47,
+          columnNumber: 14
+        }
+      }), /*#__PURE__*/React.createElement("br", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 47,
+          columnNumber: 80
+        }
+      })), /*#__PURE__*/React.createElement("div", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 49,
+          columnNumber: 12
+        }
+      }, /*#__PURE__*/React.createElement("a", {
+        target: "_blank",
+        href: 'https://ipfs.io/ipfs/' + hash + "/" + fileName,
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 50,
+          columnNumber: 13
+        }
+      }, " ", hash)))
+    );
+  };
+  exports.default = UploadFn;
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
