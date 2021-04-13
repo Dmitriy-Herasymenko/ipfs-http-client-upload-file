@@ -1,0 +1,40 @@
+/*eslint-disable no-console*/
+"use strict";
+var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  var _react = require('react');
+  var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+  var _reactDefault = _parcelHelpers.interopDefault(_react);
+  require('./components/Upload');
+  var _componentsUploadFn = require('./components/UploadFn');
+  var _componentsUploadFnDefault = _parcelHelpers.interopDefault(_componentsUploadFn);
+  var _jsxFileName = "/Users/admin/Documents/Work/test-ipfs/ipfs-http-client-upload-file/src/App.js";
+  function App() {
+    return (
+      /*#__PURE__*/_reactDefault.default.createElement("div", {
+        className: "App",
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 10,
+          columnNumber: 7
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement(_componentsUploadFnDefault.default, {
+        __self: this,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 11,
+          columnNumber: 11
+        }
+      }))
+    );
+  }
+  module.exports = App;
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}

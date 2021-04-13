@@ -1,0 +1,212 @@
+/*eslint-disable no-console*/
+"use strict";
+var helpers = require("../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+  _parcelHelpers.defineInteropFlag(exports);
+  var _react = require('react');
+  var _reactDefault = _parcelHelpers.interopDefault(_react);
+  var _ipfsHttpClient = require('ipfs-http-client');
+  var _ipfsHttpClientDefault = _parcelHelpers.interopDefault(_ipfsHttpClient);
+  var _jsxFileName = "/Users/admin/Documents/Work/test-ipfs/ipfs-http-client-upload-file/src/components/UploadClass.js";
+  class IpfsLoadClass extends _reactDefault.default.Component {
+    constructor() {
+      super();
+      this.state = {
+        added_file_hash: null
+      };
+      // bind methods
+      this.captureFile = this.captureFile.bind(this);
+      this.saveToIpfs = this.saveToIpfs.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
+      this.connect = this.connect.bind(this);
+      this.multiaddr = /*#__PURE__*/_reactDefault.default.createRef();
+    }
+    captureFile(event) {
+      event.stopPropagation();
+      event.preventDefault();
+      if (document.getElementById('keep-filename').checked) {
+        this.saveToIpfsWithFilename(event.target.files);
+      } else {
+        this.saveToIpfs(event.target.files);
+      }
+    }
+    /*Example #1*/
+    /*Add file to IPFS and return a CID*/
+    async saveToIpfs([file]) {
+      try {
+        const added = await this.state.ipfs.add(file, {
+          progress: prog => console.log(`received: ${prog}`)
+        });
+        console.log(added);
+        this.setState({
+          added_file_hash: added.cid.toString()
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    /*Example #2*/
+    /*Add file to IPFS and wrap it in a directory to keep the original filename*/
+    async saveToIpfsWithFilename([file]) {
+      const fileDetails = {
+        path: file.name,
+        content: file
+      };
+      const options = {
+        wrapWithDirectory: true,
+        progress: prog => console.log(`received: ${prog}`)
+      };
+      try {
+        const added = await this.state.ipfs.add(fileDetails, options);
+        console.log(added);
+        this.setState({
+          added_file_hash: added.cid.toString()
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    handleSubmit(event) {
+      event.preventDefault();
+    }
+    async connect() {
+      this.setState({
+        ipfs: _ipfsHttpClientDefault.default(this.multiaddr.current.value)
+      });
+    }
+    render() {
+      if (this.state.ipfs) {
+        return (
+          /*#__PURE__*/_reactDefault.default.createElement("div", {
+            __self: this,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 83,
+              columnNumber: 9
+            }
+          }, /*#__PURE__*/_reactDefault.default.createElement("form", {
+            id: "capture-media",
+            onSubmit: this.handleSubmit,
+            __self: this,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 84,
+              columnNumber: 11
+            }
+          }, /*#__PURE__*/_reactDefault.default.createElement("input", {
+            type: "file",
+            name: "input-file",
+            id: "input-file",
+            onChange: this.captureFile,
+            __self: this,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 85,
+              columnNumber: 13
+            }
+          }), /*#__PURE__*/_reactDefault.default.createElement("br", {
+            __self: this,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 85,
+              columnNumber: 96
+            }
+          }), /*#__PURE__*/_reactDefault.default.createElement("label", {
+            htmlFor: "keep-filename",
+            __self: this,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 86,
+              columnNumber: 13
+            }
+          }, /*#__PURE__*/_reactDefault.default.createElement("input", {
+            type: "checkbox",
+            id: "keep-filename",
+            name: "keep-filename",
+            __self: this,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 86,
+              columnNumber: 44
+            }
+          }), " keep filename")), /*#__PURE__*/_reactDefault.default.createElement("div", {
+            __self: this,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 88,
+              columnNumber: 11
+            }
+          }, /*#__PURE__*/_reactDefault.default.createElement("a", {
+            id: "gateway-link",
+            target: "_blank",
+            href: 'https://ipfs.io/ipfs/' + this.state.added_file_hash,
+            __self: this,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 89,
+              columnNumber: 13
+            }
+          }, this.state.added_file_hash)))
+        );
+      }
+      return (
+        /*#__PURE__*/_reactDefault.default.createElement("div", {
+          style: {
+            textAlign: 'center'
+          },
+          __self: this,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 99,
+            columnNumber: 7
+          }
+        }, /*#__PURE__*/_reactDefault.default.createElement("h1", {
+          __self: this,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 100,
+            columnNumber: 9
+          }
+        }, "Enter the multiaddr for an IPFS node HTTP API"), /*#__PURE__*/_reactDefault.default.createElement("form", {
+          __self: this,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 101,
+            columnNumber: 9
+          }
+        }, /*#__PURE__*/_reactDefault.default.createElement("input", {
+          id: "connect-input",
+          type: "text",
+          defaultValue: "/ip4/127.0.0.1/tcp/5001",
+          ref: this.multiaddr,
+          __self: this,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 102,
+            columnNumber: 11
+          }
+        }), /*#__PURE__*/_reactDefault.default.createElement("input", {
+          id: "connect-submit",
+          type: "button",
+          value: "Connect",
+          onClick: this.connect,
+          __self: this,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 103,
+            columnNumber: 11
+          }
+        })))
+      );
+    }
+  }
+  exports.default = IpfsLoadClass;
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}

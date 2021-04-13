@@ -1,7 +1,6 @@
-const { useState, useEffect } = require('react')
-
-const React = require('react')
-const IPFS = require('ipfs-core')
+import  { useState, useEffect } from 'react';
+import React from 'react';
+import IPFS  from 'ipfs-core';
 
 const UploadFn = () => {
     const [hash, setHash] = useState("");
